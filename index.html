@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="uz">
+<html lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -124,29 +124,28 @@
     .btn {
       display: flex;
       align-items: center;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 12px 15px;
-      border-radius: 18px;
+      background: #000000;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 18px 25px;
+      border-radius: 40px;
       text-decoration: none;
       color: #fff;
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
     }
 
     .btn-icon {
-      width: 30px;
+      width: 35px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-right: 15px;
+      margin-right: 20px;
       flex-shrink: 0;
     }
 
     .btn-icon i {
       color: #fff;
-      font-size: 24px;
+      font-size: 26px;
     }
 
     /* TELEFON ICONKASINI TO'G'IRLASH */
@@ -162,11 +161,11 @@
       letter-spacing: 0.5px;
     }
 
-    .btn:active { transform: scale(0.98); background: rgba(0,0,0,0.9); }
+    .btn:active { transform: scale(0.98); background: #111; }
     .btn:hover {
-      border-color: rgba(255,255,255,0.6);
+      background: #0a0a0a;
       transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
     }
 
     /* ---------------- ANIMATSIYALAR ---------------- */
@@ -177,34 +176,6 @@
     }
     .anim-shake { animation: subtleShake 0.4s ease-in-out; }
 
-    /* ---------------- MAP (KARTA) ---------------- */
-    .map-container {
-      margin-top: 10px;
-      border-radius: 18px;
-      overflow: hidden;
-      height: 220px;
-      position: relative;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      background: #1a1a1a;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.6);
-      transition: transform 0.3s;
-    }
-
-    .map-container:hover { transform: scale(1.02); border-color: #fff; }
-
-    .map-container iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      filter: grayscale(100%) invert(92%) contrast(110%);
-    }
-
-    .map-link-overlay {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 10;
-      background: transparent;
-    }
 
     /* ---------------- SHARE (YUBORISH) TUGMASI ---------------- */
     .share-btn {
@@ -230,9 +201,62 @@
     .share-btn:active { transform: scale(0.9); }
     .share-btn:hover { transform: rotate(15deg) scale(1.1); }
 
+    /* ---------------- LANGUAGE SWITCHER ---------------- */
+    .lang-switcher {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      display: flex;
+      gap: 5px;
+      z-index: 100;
+    }
+    
+    .lang-btn {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      padding: 5px 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      transition: all 0.3s;
+    }
+
+    @media (max-width: 380px) {
+      .lang-switcher {
+        top: 10px;
+        left: 10px;
+        gap: 4px;
+      }
+      .lang-btn {
+        padding: 4px 6px;
+        font-size: 12px;
+      }
+    }
+
+    .lang-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .lang-btn.active {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: #fff;
+    }
+
   </style>
 </head>
 <body>
+
+  <!-- TILLARNI ALMASHTIRISH -->
+  <div class="lang-switcher">
+    <button class="lang-btn" data-lang="uz" onclick="setLang('uz')">UZ</button>
+    <button class="lang-btn active" data-lang="ru" onclick="setLang('ru')">RU</button>
+    <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+  </div>
 
   <video class="bg-video" autoplay muted loop playsinline>
     <source src="kottabola.377vidio.mp4" type="video/mp4">
@@ -256,38 +280,36 @@
       
       <a href="tel:+998993773771" class="btn">
         <div class="btn-icon"><i class="fas fa-phone-alt"></i></div>
-        <span class="btn-text">Telefon raqam</span>
+        <span class="btn-text" data-key="phone">Telefon raqam</span>
       </a>
 
       <a href="https://t.me/kb377uzb" target="_blank" class="btn">
         <div class="btn-icon"><i class="fab fa-telegram-plane"></i></div>
-        <span class="btn-text">Telegram</span>
+        <span class="btn-text" data-key="telegram">Telegram</span>
+      </a>
+
+      <a href="https://t.me/uz377" target="_blank" class="btn">
+        <div class="btn-icon"><i class="far fa-comment-alt"></i></div>
+        <span class="btn-text" data-key="order">Oformit zakaz, konsultatsiya</span>
       </a>
 
       <a href="https://www.instagram.com/kottabola.377?igsh=cWl6MTZraDFxNDUy" target="_blank" class="btn">
         <div class="btn-icon"><i class="fab fa-instagram"></i></div>
-        <span class="btn-text">Toshkent filiali</span>
+        <span class="btn-text" data-key="tashkent">Toshkent filiali</span>
       </a>
 
       <a href="https://www.instagram.com/kottabola377.samarqand?igsh=MW9rMnB2dXc0aDh2cA" target="_blank" class="btn">
         <div class="btn-icon"><i class="fab fa-instagram"></i></div>
-        <span class="btn-text">Samarqand filiali</span>
+        <span class="btn-text" data-key="samarkand">Samarqand filiali</span>
       </a>
 
-      <a href="https://www.instagram.com/kottabola377.shahrisabz" target="_blank" class="btn">
-        <div class="btn-icon"><i class="fab fa-instagram"></i></div>
-        <span class="btn-text">Shahrisabz filiali</span>
+      <!-- YANGI LOKATSIYA TUGMASI -->
+      <a href="https://yandex.ru/maps/-/CPsWnDZl" target="_blank" class="btn">
+        <div class="btn-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <span class="btn-text" data-key="location">Lokatsiya</span>
       </a>
 
-      <a href="https://www.instagram.com/kottabola377.kids/" target="_blank" class="btn">
-        <div class="btn-icon"><i class="fab fa-instagram"></i></div> 
-        <span class="btn-text">Bolalar uchun.kids</span>
-      </a>
 
-      <div class="map-container">
-        <iframe src="https://yandex.ru/map-widget/v1/?org_id=162590288895&z=16" allowfullscreen="true"></iframe>
-        <a href="https://yandex.ru/maps/org/162590288895" target="_blank" class="map-link-overlay" aria-label="Xaritani ochish"></a>
-      </div>
 
     </div>
   </main>
@@ -326,6 +348,56 @@
         alert("Havola nusxalandi!");
       }
     }
+
+    // TILLARNI ALMASHTIRISH MANTIG'I
+    const translations = {
+      uz: {
+        phone: "Telefon raqam",
+        telegram: "Telegram",
+        order: "Buyurtma berish, konsultatsiya",
+        tashkent: "Toshkent filiali",
+        samarkand: "Samarqand filiali",
+        location: "Lokatsiya"
+      },
+      ru: {
+        phone: "Номер телефона",
+        telegram: "Telegram",
+        order: "Оформить заказ, консультация",
+        tashkent: "Ташкентский филиал",
+        samarkand: "Самаркандский филиал",
+        location: "Локация"
+      },
+      en: {
+        phone: "Phone number",
+        telegram: "Telegram",
+        order: "Place an order, consultation",
+        tashkent: "Tashkent branch",
+        samarkand: "Samarkand branch",
+        location: "Location"
+      }
+    };
+
+    function setLang(lang) {
+      document.documentElement.lang = lang;
+      
+      // Tugmalarning faol holatini o'zgartirish
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+      
+      // Matnlarni tarjima qilish
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.dataset.key;
+        if (translations[lang] && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+    }
+
+    // Sahifa yuklanganda standart til sifatida RUS tilini o'rnatish
+    document.addEventListener('DOMContentLoaded', () => {
+      setLang('ru');
+    });
   </script>
 
 </body>
